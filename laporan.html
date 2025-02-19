@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Harian Ramadhan</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        form { max-width: 400px; margin: auto; }
+        input, select, textarea { width: 100%; margin-bottom: 10px; padding: 8px; }
+        button { padding: 10px; background-color: green; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>Laporan Harian Ramadhan</h2>
+    <form id="reportForm">
+        <input type="text" id="name" placeholder="Nama" required>
+        <input type="text" id="class" placeholder="Kelas" required>
+        <input type="text" id="nis" placeholder="NIS" required>
+        
+        <label>Sholat 5 Waktu:</label>
+        <select id="sholat">
+            <option value="Ya">Ya</option>
+            <option value="Tidak">Tidak</option>
+        </select>
+        
+        <label>Tarawih:</label>
+        <select id="tarawih">
+            <option value="Ya">Ya</option>
+            <option value="Tidak">Tidak</option>
+        </select>
+        
+        <label>Puasa:</label>
+        <select id="puasa">
+            <option value="Ya">Ya</option>
+            <option value="Tidak">Tidak</option>
+        </select>
+        
+        <textarea id="hafalan" placeholder="Catatan Hafalan"></textarea>
+        <button type="submit">Kirim</button>
+    </form>
+    
+    <script>
+        document.getElementById('reportForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let data = {
+                name: document.getElementById('name').value,
+                class: document.getElementById('class').value,
+                nis: document.getElementById('nis').value,
+                sholat: document.getElementById('sholat').value,
+                tarawih: document.getElementById('tarawih').value,
+                puasa: document.getElementById('puasa').value,
+                hafalan: document.getElementById('hafalan').value
+            };
+            
+            fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text())
+            .then(data => alert('Data berhasil dikirim!'))
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
